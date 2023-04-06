@@ -19,6 +19,10 @@ public class QuickSort {
 
         quickSort(initialArray, 0, initialArray.length - 1);
         System.out.println(Arrays.toString(initialArray));
+
+        initialArray = new int[]{3, 6, 1, 4, 2, 8, 5, 9, 7};
+        quickSort_2(initialArray, 0, initialArray.length - 1);
+        System.out.println(Arrays.toString(initialArray));
     }
 
     private static void quickSort(int[] source, int leftBorder, int rightBorder) {
@@ -55,5 +59,43 @@ public class QuickSort {
         if (leftBorder < rightMarker) {
             quickSort(source, leftBorder, rightMarker);
         }
+    }
+
+    private static void quickSort_2(int[] array, int from, int to) {
+        if (from < to) {
+            int divideIndex = partition(array, from, to);
+            quickSort_2(array, from, divideIndex - 1);
+            quickSort_2(array, divideIndex, to);
+        }
+    }
+
+    private static int partition(int[] array, int from, int to) {
+        int leftIndex = from;
+        int rightIndex = to;
+
+        int pivot = array[from];
+        while (leftIndex <= rightIndex) {
+
+            while (array[leftIndex] < pivot) {
+                leftIndex++;
+            }
+
+            while (array[rightIndex] > pivot) {
+                rightIndex--;
+            }
+
+            if (leftIndex <= rightIndex) {
+                swap(array, leftIndex, rightIndex);
+                leftIndex++;
+                rightIndex--;
+            }
+        }
+        return leftIndex;
+    }
+
+    private static void swap(int[] array, int indexOne, int indexTwo) {
+        int tmp = array[indexOne];
+        array[indexOne] = array[indexTwo];
+        array[indexTwo] = tmp;
     }
 }
